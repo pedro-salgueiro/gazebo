@@ -1,0 +1,106 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid": "value":"830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Start Server",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "./bin/gzserver.exe",
+            "args": ["./share/gazebo-11/worlds/flocking.world","--verbose"],
+            "stopAtEntry": false,
+            "cwd": "C:/gz/install/${command:cmake.buildType}",
+            "environment": [
+                {
+                    "name":"PATH",
+                    "value": "C:/vcpkg/installed/x64-windows/${command:cmake.buildType}/bin;%PATH%"
+                },
+                {
+                    "name":"HOME",
+                    "value": "C:/Users/Pedro.Salgueiro"
+                },
+                {
+                    "name": "GAZEBO_MASTER_URI",
+                    "value": "http://localhost:11345"
+                },
+                {
+                    "name": "GAZEBO_MODEL_DATABASE_URI",
+                    "value": "http://models.gazebosim.org"
+                },
+                {
+                    "name": "GAZEBO_RESOURCE_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/share/gazebo-11;%GAZEBO_RESOURCE_PATH%"
+                },
+                {
+                    "name": "GAZEBO_PLUGIN_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/bin/gazebo-11/plugins;%GAZEBO_PLUGIN_PATH%"
+                },
+                {
+                    "name": "GAZEBO_MODEL_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/share/gazebo-11/models;%GAZEBO_MODEL_PATH%"
+                },
+                {
+                    "name": "OGRE_RESOURCE_PATH",
+                    "value": "C:/vcpkg/installed/x64-windows/${command:cmake.buildType}/bin"
+                },
+            ],
+            "externalConsole": true,
+            "sourceFileMap": {
+                "c:/prj/extsrc/vcpkg": "c:/vcpkg"
+            }            
+        },
+        {
+            "name": "Start Client",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "C:/gz/install/${command:cmake.buildType}/bin/gzclient.exe",
+            "args": ["--verbose"],
+            "stopAtEntry": false,
+            "cwd": "C:/gz/install/${command:cmake.buildType}",
+            "environment": [
+                {
+                    "name":"PATH",
+                    "value": "C:/vcpkg/installed/x64-windows/${command:cmake.buildType}/bin;%PATH%"
+                },
+                {
+                    "name":"HOME",
+                    "value": "C:/Users/Pedro.Salgueiro"
+                },
+                {
+                    "name": "GAZEBO_MASTER_URI",
+                    "value": "http://localhost:11345"
+                },
+                {
+                    "name": "GAZEBO_MODEL_DATABASE_URI",
+                    "value": "http://models.gazebosim.org"
+                },
+                {
+                    "name": "GAZEBO_RESOURCE_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/share/gazebo-11;%GAZEBO_RESOURCE_PATH%"
+                },
+                {
+                    "name": "GAZEBO_PLUGIN_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/bin/gazebo-11/plugins;%GAZEBO_PLUGIN_PATH%"
+                },
+                {
+                    "name": "GAZEBO_MODEL_PATH",
+                    "value": "C:/gz/install/${command:cmake.buildType}/share/gazebo-11/models;%GAZEBO_MODEL_PATH%"
+                },
+                {
+                    "name": "OGRE_RESOURCE_PATH",
+                    "value": "C:/vcpkg/installed/x64-windows/${command:cmake.buildType}/bin"
+                },
+                {
+                    "name": "QT_QPA_PLATFORM_PLUGIN_PATH",
+                    "value": "C:/vcpkg/installed/x64-windows/${command:cmake.buildType}/plugins"
+                }
+            ],
+            "externalConsole": true,
+            "sourceFileMap": {
+                "c:/prj/extsrc/vcpkg": "c:/vcpkg"
+            }
+        }
+    ]
+}

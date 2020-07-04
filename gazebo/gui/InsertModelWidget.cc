@@ -428,7 +428,7 @@ void InsertModelWidget::UpdateLocalPath(const std::string &_path)
       }
 
       TiXmlDocument xmlDoc;
-      if (xmlDoc.LoadFile(manifest.string()))
+      if (xmlDoc.LoadFile(manifest.string().c_str()))
       {
         TiXmlElement *modelXML = xmlDoc.FirstChildElement("model");
         if (!modelXML || !modelXML->FirstChildElement("name"))

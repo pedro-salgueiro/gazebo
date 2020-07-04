@@ -2,12 +2,10 @@ include (${gazebo_cmake_dir}/GazeboUtils.cmake)
 include (CheckCXXSourceCompiles)
 
 include (${gazebo_cmake_dir}/FindOS.cmake)
-include (FindPkgConfig)
-include (${gazebo_cmake_dir}/FindFreeimage.cmake)
 
-execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --modversion protobuf
-  OUTPUT_VARIABLE PROTOBUF_VERSION
-  RESULT_VARIABLE protobuf_modversion_failed)
+include (FindPkgConfig QUIET)
+
+include (${gazebo_cmake_dir}/FindFreeimage.cmake)
 
 ########################################
 # 1. can not use GAZEBO_BUILD_TYPE_PROFILE is defined after include this module
@@ -25,6 +23,11 @@ if (CMAKE_BUILD_TYPE)
 endif()
 
 ########################################
+# PROTOBUF
+execute_process(COMMAND ${PKG_CONFIG_EXECUTABLE} --modversion protobuf
+  OUTPUT_VARIABLE PROTOBUF_VERSION
+  RESULT_VARIABLE protobuf_modversion_failed)
+
 if (PROTOBUF_VERSION LESS 2.3.0)
   BUILD_ERROR("Incorrect version: Gazebo requires protobuf version 2.3.0 or greater")
 endif()
@@ -34,7 +37,10 @@ endif()
 find_package(Protobuf REQUIRED)
 if (NOT PROTOBUF_FOUND)
   BUILD_ERROR ("Missing: Google Protobuf (libprotobuf-dev)")
+else ()
+  message(STATUS "Protobuf Found")
 endif()
+
 if (NOT PROTOBUF_PROTOC_EXECUTABLE)
   BUILD_ERROR ("Missing: Google Protobuf Compiler (protobuf-compiler)")
 endif()
@@ -63,11 +69,11 @@ else ()
    set (HAVE_OPENGL TRUE)
    add_definitions(-DHAVE_OPENGL)
  endif()
- if (OPENGL_LIBRARIES)
-   APPEND_TO_CACHED_LIST(gazeboserver_link_libs
-                         ${gazeboserver_link_libs_desc}
-                         ${OPENGL_LIBRARIES})
- endif()
+  if (OPENGL_LIBRARIES)
+    APPEND_TO_CACHED_LIST(gazeboserver_link_libs
+                          ${gazeboserver_link_libs_desc}
+                          ${OPENGL_LIBRARIES})
+  endif()
 endif ()
 
 ########################################
@@ -91,7 +97,7 @@ endif ()
 ########################################
 # Find packages
 
-find_package(CURL)
+FIND_PACKAGE(CURL QUIET COMPONENTS libcurl CONFIG)
 if (CURL_FOUND)
   # FindCURL.cmake distributed with CMake exports
   # the CURL_INCLUDE_DIRS variable, while the pkg_check_modules
@@ -306,30 +312,34 @@ if (PKG_CONFIG_FOUND)
 
   #################################################
   # Find TBB
-  pkg_check_modules(TBB tbb)
-  set (TBB_PKG_CONFIG "tbb")
-  if (NOT TBB_FOUND)
-    message(STATUS "TBB not found, attempting to detect manually")
-    set (TBB_PKG_CONFIG "")
-
-    # Workaround for CMake bug https://gitlab.kitware.com/cmake/cmake/issues/17135
-    unset(TBB_FOUND CACHE)
-
-    find_package(TBB CONFIG)
-    if (TBB_FOUND)
-      set(TBB_LIBRARIES TBB::tbb)
-    endif()
-
+  if (WIN32)
+    find_package(TBB CONFIG REQUIRED)
+  else ()
+    pkg_check_modules(TBB tbb)
+    set (TBB_PKG_CONFIG "tbb")
     if (NOT TBB_FOUND)
-      find_library(tbb_library tbb ENV LD_LIBRARY_PATH)
-      if (tbb_library)
-        set(TBB_FOUND true)
-        set(TBB_LIBRARIES ${tbb_library})
-      else (tbb_library)
-        BUILD_ERROR ("Missing: TBB - Threading Building Blocks")
-      endif(tbb_library)
+      message(STATUS "TBB not found, attempting to detect manually")
+      set (TBB_PKG_CONFIG "")
+
+      # Workaround for CMake bug https://gitlab.kitware.com/cmake/cmake/issues/17135
+      unset(TBB_FOUND CACHE)
+
+      find_package(TBB CONFIG)
+      if (TBB_FOUND)
+        set(TBB_LIBRARIES TBB::tbb)
+      endif()
+
+      if (NOT TBB_FOUND)
+        find_library(tbb_library tbb ENV LD_LIBRARY_PATH)
+        if (tbb_library)
+          set(TBB_FOUND true)
+          set(TBB_LIBRARIES ${tbb_library})
+        else (tbb_library)
+          BUILD_ERROR ("Missing: TBB - Threading Building Blocks")
+        endif(tbb_library)
+      endif (NOT TBB_FOUND)
     endif (NOT TBB_FOUND)
-  endif (NOT TBB_FOUND)
+  endif()
 
   #################################################
   # Find OGRE
@@ -830,7 +840,7 @@ find_path(QWT_INCLUDE_DIR NAMES qwt.h PATHS
   PATH_SUFFIXES qwt qwt5
 )
 
-find_library(QWT_LIBRARY NAMES qwt-qt5 qwt PATHS
+find_library(QWT_LIBRARY NAMES qwtd-qt5 qwtd PATHS
   /usr/lib
   /usr/local/lib
   /usr/local/lib/qwt.framework

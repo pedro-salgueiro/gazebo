@@ -21,6 +21,7 @@
 
 
 using namespace gazebo;
+using namespace boost::placeholders;
 
 GZ_REGISTER_SENSOR_PLUGIN(ForceTorqueModelRemovalTestPlugin)
 

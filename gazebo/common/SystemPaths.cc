@@ -96,7 +96,8 @@ SystemPaths::SystemPaths()
   std::string fullPath;
   if (!path)
   {
-    if (home != this->TmpPath() + "/gazebo")
+    auto tmpPath = this->TmpPath();
+    if (home !=  tmpPath + "/gazebo")
       fullPath = home + "/.gazebo";
     else
       fullPath = home;
@@ -174,13 +175,13 @@ const std::list<std::string> &SystemPaths::GetOgrePaths()
 }
 
 /////////////////////////////////////////////////
-const std::string &SystemPaths::TmpPath() const
+const std::string SystemPaths::TmpPath() const
 {
   return this->tmpPath.string();
 }
 
 /////////////////////////////////////////////////
-const std::string &SystemPaths::TmpInstancePath() const
+const std::string SystemPaths::TmpInstancePath() const
 {
   return this->tmpInstancePath.string();
 }

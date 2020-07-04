@@ -61,6 +61,7 @@ target_link_libraries(gz
  ${Qt5Widgets_LIBRARIES}
  ${Boost_LIBRARIES}
  ${IGNITION-TRANSPORT_LIBRARIES}
+ TBB::tbb
 )
 
 if (UNIX)

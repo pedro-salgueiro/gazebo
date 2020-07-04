@@ -1,4 +1,6 @@
 include (FindPkgConfig)
+
+
 include (${gazebo_cmake_dir}/GazeboUtils.cmake)
 
 ########################################
@@ -11,6 +13,7 @@ if (PKG_CONFIG_FOUND)
 endif (PKG_CONFIG_FOUND)
 
 if (NOT freeimage_FOUND)
+  message (STATUS "Manual detection for FreeImage")
   find_path(freeimage_INCLUDE_DIRS FreeImage.h)
   if (NOT freeimage_INCLUDE_DIRS)
     message (STATUS "  Looking for FreeImage.h - not found")

@@ -170,6 +170,7 @@ target_link_libraries(TrackedVehiclePlugin
         libgazebo
         ${ogre_libraries}
         ${IGNITION-TRANSPORT_LIBRARIES}
+        TBB::tbb
         )
 install (TARGETS TrackedVehiclePlugin
          LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
@@ -183,6 +184,7 @@ foreach (src ${plugins_single_header})
     libgazebo
     ${ogre_libraries}
     ${IGNITION-TRANSPORT_LIBRARIES}
+    TBB::tbb
   )
   install (TARGETS ${src}
            LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
@@ -205,6 +207,7 @@ foreach (src ${plugins_private_header})
     libgazebo
     ${ogre_libraries}
     ${IGNITION-TRANSPORT_LIBRARIES}
+    TBB::tbb
   )
   install (TARGETS ${src}
            LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
@@ -224,6 +227,7 @@ foreach (src ${GUIplugins})
                         ${Qt5Test_LIBRARIES}
                         ${Qt5Widgets_LIBRARIES}
                         ${IGNITION-TRANSPORT_LIBRARIES}
+                        TBB::tbb
 )
   install (TARGETS ${src}
            LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}

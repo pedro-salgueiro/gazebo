@@ -24,6 +24,7 @@
 
 using namespace gazebo;
 using namespace gui;
+using namespace boost::placeholders;
 
 /////////////////////////////////////////////////
 ModelTreeWidget::ModelTreeWidget(QWidget *_parent)

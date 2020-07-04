@@ -582,6 +582,8 @@ void Server::Run()
 
   this->dataPtr->initialized = true;
 
+  gzlog << "Entering the simulation loop...";
+
   // Stay on this loop until Gazebo needs to be shut down
   // The server and sensor manager outlive worlds
   while (!this->dataPtr->stop)

@@ -45,7 +45,7 @@ include_directories(
 )
 
 add_library(SimEventsPlugin SHARED ${sim_event_src})
-target_link_libraries(SimEventsPlugin gazebo_physics gazebo_msgs)
+target_link_libraries(SimEventsPlugin gazebo_physics gazebo_msgs TBB::tbb)
 install (TARGETS SimEventsPlugin
          LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
          ARCHIVE DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
@@ -53,7 +53,7 @@ install (TARGETS SimEventsPlugin
 gz_install_includes("plugins/events" ${sim_event_include})
 
 add_library(RegionEventBoxPlugin SHARED ${src})
-target_link_libraries(RegionEventBoxPlugin gazebo_physics gazebo_msgs)
+target_link_libraries(RegionEventBoxPlugin gazebo_physics gazebo_msgs TBB::tbb)
 install (TARGETS RegionEventBoxPlugin
          LIBRARY DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}
          ARCHIVE DESTINATION ${GAZEBO_PLUGIN_LIB_INSTALL_DIR}

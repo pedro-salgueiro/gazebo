@@ -62,7 +62,7 @@ target_link_libraries(gzserver
   gazebo_msgs
   # Extra libs needed when linking statically (e.g., on WIN32)
   ${freeimage_LIBRARIES}
-  ${TBB_LIBRARIES}
+  TBB::tbb
   ${ogre_libraries}
 )
 
